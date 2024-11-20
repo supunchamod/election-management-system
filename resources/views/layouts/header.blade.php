@@ -358,6 +358,15 @@
                                         <li class="nav-item">
                                             <a href="{{ route('results.create') }}" class="nav-link ">Add Result</a>
                                         </li><!--end nav-item-->
+                                        <li class="nav-item">
+                                            <a href="{{ route('results.index')}}" class="nav-link ">All Island Result</a>
+                                        </li><!--end nav-item-->
+                                        @foreach($districts as $district)
+                                        <li class="nav-item">
+                                            <a href="{{ route('district.result', $district->id) }}" class="nav-link "> {{ $district->district_name }} District</a>
+                                        </li><!--end nav-item-->
+                                        @endforeach 
+                    
                                     </ul><!--end nav-->
                                 </div><!--end startbarCharts-->
                             </li><!--end nav-item-->

@@ -15,4 +15,8 @@ class Division extends Model
     {
         return $this->belongsTo(District::class);
     }
+    public function electionResults()
+    {
+    return $this->hasMany(ElectionResult::class);
+    }
 }

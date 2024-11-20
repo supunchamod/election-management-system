@@ -22,7 +22,9 @@ class ResultController extends Controller
      */
     public function index()
     {
-        //
+        $members_votes = MemberVoteSummary::all();
+        $vote_summery = VotesSummary::all();
+        return view('results.island_result', compact('members_votes', 'vote_summery'));
     }
 
     /**
@@ -200,6 +202,29 @@ public function updateVotesSummary()
     }
 }
     
+public function showDistrictResult($id)
+{
+    // Fetch the district with related election results and member votes
+    $district = District::with(['divisions.electionResults.memberVotes'])->findOrFail($id);
+
+    // Calculate totals for the district
+    $totalRegisteredElectors = 0;
+    $totalVotesPolled = 0;
+    $totalRejectedVotes = 0;
+    $totalValidVotes = 0;
+
+    foreach ($district->divisions as $division) {
+        foreach ($division->electionResults as $result) {
+            $totalRegisteredElectors += $result->number_of_registered_electors;
+            $totalVotesPolled += $result->number_of_votes_polled;
+            $totalRejectedVotes += $result->number_of_rejected_votes;
+            $totalValidVotes += ($result->number_of_votes_polled - $result->number_of_rejected_votes);
+        }
+    }
+
+    return view('results.district_result', compact('district', 'totalRegisteredElectors', 'totalVotesPolled', 'totalRejectedVotes', 'totalValidVotes'));
+}
+
     
 
 

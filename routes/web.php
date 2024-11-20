@@ -41,4 +41,6 @@ Route::resource('divisions', DivisionController::class);
 Route::resource('results', ResultController::class);
 
 Route::get('/division/{division}/results', [ResultController::class, 'show'])->name('division.results');
+Route::get('/districts/{id}/result', [ResultController::class, 'showDistrictResult'])->name('district.result');
+
 

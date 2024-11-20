@@ -30,15 +30,15 @@ class ElectionResult extends Model
         return $this->belongsTo(District::class);
     }
 
-    public function division()
-    {
-        return $this->belongsTo(Division::class);
-    }
-
     public function memberVotes()
     {
         return $this->hasMany(MemberVote::class, 'election_result_id');
     }
+    public function division()
+    {
+    return $this->belongsTo(Division::class);
+    }
+
 
 
 }
